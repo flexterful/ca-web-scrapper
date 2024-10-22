@@ -8,7 +8,7 @@
     "packages": [
         {
             "name": "api-platform/documentation",
-            "version": "v4.0.4",
+            "version": "v4.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/documentation.git",
@@ -63,13 +63,13 @@
             ],
             "description": "API Platform documentation controller.",
             "support": {
-                "source": "https://github.com/api-platform/documentation/tree/v4.0.4"
+                "source": "https://github.com/api-platform/documentation/tree/v4.0.5"
             },
             "time": "2024-09-21T11:01:16+00:00"
         },
         {
             "name": "api-platform/hydra",
-            "version": "v4.0.4",
+            "version": "v4.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/hydra.git",
@@ -147,13 +147,13 @@
                 "rest"
             ],
             "support": {
-                "source": "https://github.com/api-platform/hydra/tree/v4.0.4"
+                "source": "https://github.com/api-platform/hydra/tree/v4.0.5"
             },
             "time": "2024-10-10T10:04:25+00:00"
         },
         {
             "name": "api-platform/json-api",
-            "version": "v4.0.4",
+            "version": "v4.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/json-api.git",
@@ -225,13 +225,13 @@
                 "rest"
             ],
             "support": {
-                "source": "https://github.com/api-platform/json-api/tree/v4.0.4"
+                "source": "https://github.com/api-platform/json-api/tree/v4.0.5"
             },
             "time": "2024-09-21T11:01:16+00:00"
         },
         {
             "name": "api-platform/json-hal",
-            "version": "v4.0.4",
+            "version": "v4.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/json-hal.git",
@@ -297,22 +297,22 @@
                 "rest"
             ],
             "support": {
-                "source": "https://github.com/api-platform/json-hal/tree/v4.0.4"
+                "source": "https://github.com/api-platform/json-hal/tree/v4.0.5"
             },
             "time": "2024-09-21T11:01:16+00:00"
         },
         {
             "name": "api-platform/json-schema",
-            "version": "v4.0.4",
+            "version": "v4.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/json-schema.git",
-                "reference": "5d2cbd05f06d88b63007185a946ba6f5b5526bad"
+                "reference": "8546df9eab8c8f664181e5cf67ba2eff927d5539"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/api-platform/json-schema/zipball/5d2cbd05f06d88b63007185a946ba6f5b5526bad",
-                "reference": "5d2cbd05f06d88b63007185a946ba6f5b5526bad",
+                "url": "https://api.github.com/repos/api-platform/json-schema/zipball/8546df9eab8c8f664181e5cf67ba2eff927d5539",
+                "reference": "8546df9eab8c8f664181e5cf67ba2eff927d5539",
                 "shasum": ""
             },
             "require": {
@@ -375,22 +375,22 @@
                 "swagger"
             ],
             "support": {
-                "source": "https://github.com/api-platform/json-schema/tree/v4.0.4"
+                "source": "https://github.com/api-platform/json-schema/tree/v4.0.5"
             },
-            "time": "2024-10-04T06:16:31+00:00"
+            "time": "2024-10-22T05:47:01+00:00"
         },
         {
             "name": "api-platform/jsonld",
-            "version": "v4.0.4",
+            "version": "v4.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/jsonld.git",
-                "reference": "b938a5cd7fad03a23433f918b493014eec9b0cb7"
+                "reference": "60d6d241674a50d0506e8a6bdba9921cf17870fb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/api-platform/jsonld/zipball/b938a5cd7fad03a23433f918b493014eec9b0cb7",
-                "reference": "b938a5cd7fad03a23433f918b493014eec9b0cb7",
+                "url": "https://api.github.com/repos/api-platform/jsonld/zipball/60d6d241674a50d0506e8a6bdba9921cf17870fb",
+                "reference": "60d6d241674a50d0506e8a6bdba9921cf17870fb",
                 "shasum": ""
             },
             "require": {
@@ -449,22 +449,22 @@
                 "rest"
             ],
             "support": {
-                "source": "https://github.com/api-platform/jsonld/tree/v4.0.4"
+                "source": "https://github.com/api-platform/jsonld/tree/v4.0.5"
             },
-            "time": "2024-10-11T11:13:21+00:00"
+            "time": "2024-10-22T05:47:01+00:00"
         },
         {
             "name": "api-platform/laravel",
-            "version": "v4.0.4",
+            "version": "v4.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/laravel.git",
-                "reference": "7299ce7a3f3f7eecda35066f25437a7542d2fa55"
+                "reference": "5e6aa1feb13854b4bce19b5d396e340104e7a9e8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/api-platform/laravel/zipball/7299ce7a3f3f7eecda35066f25437a7542d2fa55",
-                "reference": "7299ce7a3f3f7eecda35066f25437a7542d2fa55",
+                "url": "https://api.github.com/repos/api-platform/laravel/zipball/5e6aa1feb13854b4bce19b5d396e340104e7a9e8",
+                "reference": "5e6aa1feb13854b4bce19b5d396e340104e7a9e8",
                 "shasum": ""
             },
             "require": {
@@ -563,22 +563,22 @@
                 "swagger"
             ],
             "support": {
-                "source": "https://github.com/api-platform/laravel/tree/v4.0.4"
+                "source": "https://github.com/api-platform/laravel/tree/v4.0.5"
             },
-            "time": "2024-10-11T11:50:26+00:00"
+            "time": "2024-10-22T05:48:23+00:00"
         },
         {
             "name": "api-platform/metadata",
-            "version": "v4.0.4",
+            "version": "v4.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/metadata.git",
-                "reference": "af6d0a151a06deb3a3fdfd29bd328acdcec8af4f"
+                "reference": "bfd87fb35b2bbfa4777980d65536d293d5fb444c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/api-platform/metadata/zipball/af6d0a151a06deb3a3fdfd29bd328acdcec8af4f",
-                "reference": "af6d0a151a06deb3a3fdfd29bd328acdcec8af4f",
+                "url": "https://api.github.com/repos/api-platform/metadata/zipball/bfd87fb35b2bbfa4777980d65536d293d5fb444c",
+                "reference": "bfd87fb35b2bbfa4777980d65536d293d5fb444c",
                 "shasum": ""
             },
             "require": {
@@ -659,13 +659,13 @@
                 "swagger"
             ],
             "support": {
-                "source": "https://github.com/api-platform/metadata/tree/v4.0.4"
+                "source": "https://github.com/api-platform/metadata/tree/v4.0.5"
             },
-            "time": "2024-10-11T11:13:21+00:00"
+            "time": "2024-10-22T05:47:01+00:00"
         },
         {
             "name": "api-platform/openapi",
-            "version": "v4.0.4",
+            "version": "v4.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/openapi.git",
@@ -744,13 +744,13 @@
                 "swagger"
             ],
             "support": {
-                "source": "https://github.com/api-platform/openapi/tree/v4.0.4"
+                "source": "https://github.com/api-platform/openapi/tree/v4.0.5"
             },
             "time": "2024-09-21T11:01:16+00:00"
         },
         {
             "name": "api-platform/serializer",
-            "version": "v4.0.4",
+            "version": "v4.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/serializer.git",
@@ -834,22 +834,22 @@
                 "serializer"
             ],
             "support": {
-                "source": "https://github.com/api-platform/serializer/tree/v4.0.4"
+                "source": "https://github.com/api-platform/serializer/tree/v4.0.5"
             },
             "time": "2024-10-11T11:13:21+00:00"
         },
         {
             "name": "api-platform/state",
-            "version": "v4.0.4",
+            "version": "v4.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/state.git",
-                "reference": "b573a1dca8d746010bb4fb9122b2dc501e0245c6"
+                "reference": "881279b5cde71caa9e9eda4fd76139c32f7d9928"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/api-platform/state/zipball/b573a1dca8d746010bb4fb9122b2dc501e0245c6",
-                "reference": "b573a1dca8d746010bb4fb9122b2dc501e0245c6",
+                "url": "https://api.github.com/repos/api-platform/state/zipball/881279b5cde71caa9e9eda4fd76139c32f7d9928",
+                "reference": "881279b5cde71caa9e9eda4fd76139c32f7d9928",
                 "shasum": ""
             },
             "require": {
@@ -924,9 +924,9 @@
                 "swagger"
             ],
             "support": {
-                "source": "https://github.com/api-platform/state/tree/v4.0.4"
+                "source": "https://github.com/api-platform/state/tree/v4.0.5"
             },
-            "time": "2024-10-04T06:16:31+00:00"
+            "time": "2024-10-22T05:47:01+00:00"
         },
         {
             "name": "brick/math",
