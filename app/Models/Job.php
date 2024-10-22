@@ -3,12 +3,21 @@
 namespace App\Models;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\Post;
 use App\Observers\JobObserver;
 use DateTime;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Model;
 
-#[ApiResource]
+#[ApiResource(
+    operations: [
+        new Delete(),
+        new Get(),
+        new Post(),
+    ],
+)]
 #[ObservedBy([JobObserver::class])]
 /**
  * @property int $id
