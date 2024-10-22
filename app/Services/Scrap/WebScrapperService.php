@@ -61,6 +61,8 @@ readonly class WebScrapperService implements ScrapperServiceInterface
     }
 
     /**
+     * Save all parsed items to the dedicated DB table
+     *
      * @param array $parsedNodeContents
      * @param string $contentName
      * @param string $selector
@@ -100,6 +102,7 @@ readonly class WebScrapperService implements ScrapperServiceInterface
             // Walk through every node that matches the selector
             $parsedNodeContents = $this->scrapSelector($crawler, $selector);
             if (!empty($parsedNodeContents)) {
+                // Store any scrapped data to the database
                 $this->saveParsedContents($parsedNodeContents, $contentName, $selector, $url);
             }
         }
@@ -119,6 +122,7 @@ readonly class WebScrapperService implements ScrapperServiceInterface
             return $node->text();
         });
     }
+
     /**
      * Scrap contents for specified URLs
      *

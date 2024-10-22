@@ -2,6 +2,10 @@
 
 namespace App\Models;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
 use DateTime;
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,6 +20,13 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @method static self create(array $attributes = []))
  */
+#[ApiResource(
+    operations: [
+        new Delete(),
+        new Get(),
+        new GetCollection(),
+    ]
+)]
 class ScrappedItem extends Model
 {
     public const TABLE = 'scrapped_items';
