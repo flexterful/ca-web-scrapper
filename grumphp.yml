@@ -1,0 +1,12 @@
+grumphp:
+    git_hook_variables:
+        commit_msg_path: .git/COMMIT_EDITMSG
+    tasks:
+        phpcs:
+            standard:
+                - phpcs.xml.dist
+        phpcsfixer:
+            config: .php-cs-fixer.dist.php
+        phpstan:
+            configuration: phpstan.dist.neon
+            memory_limit: "-1"

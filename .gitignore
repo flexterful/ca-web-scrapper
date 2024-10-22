@@ -31,6 +31,8 @@ Homestead.json
 .idea
 .phpstorm.meta.php
 .php_cs.cache
+.php-cs-fixer.cache
+.phpcs-cache
 
 # Docker files
 .docker/
