@@ -4,8 +4,8 @@ namespace Tests\Unit;
 
 use App\Exceptions\InsufficientJobParametersException;
 use App\Models\Job;
+use App\Models\ScrappedItem;
 use App\Services\Scrap\WebScrapperService;
-use DateTime;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Mockery;
 use Symfony\Component\BrowserKit\HttpBrowser;
@@ -27,10 +27,8 @@ class WebScrapperServiceTest extends TestCase
         parent::setUp();
         $this->browserMock = Mockery::mock(HttpBrowser::class);
         $this->crawlerMock = Mockery::mock(Crawler::class);
-
-        /** @var HttpBrowser $browser */
-        $browser = $this->browserMock; // Used to type-hint the mocked browser
-        $this->webScrapperService = new WebScrapperService($browser);
+        // Use mock class for service
+        $this->webScrapperService = new WebScrapperService($this->browserMock);
     }
 
     /**
@@ -44,7 +42,7 @@ class WebScrapperServiceTest extends TestCase
 
         // Create a Job with an invalid payload
         $this->webScrapperService->scrap(
-            $this->createTestJob()
+            Job::make()
         );
     }
 
@@ -56,31 +54,28 @@ class WebScrapperServiceTest extends TestCase
     public function test_it_successfully_scraps_data_and_updates_the_job(): void
     {
         // Mock the browser request and response
-        $this->browserMock->shouldReceive('request')->andReturn($this->crawlerMock);
+        $this->browserMock->shouldReceive('request')->with('GET', 'https://example.com')->andReturn($this->crawlerMock);
 
         // Mock the crawler to return specific content for given selectors
         $this->crawlerMock->shouldReceive('filter')->with('h1')->andReturnSelf();
         $this->crawlerMock->shouldReceive('each')->andReturn(['Sample Title']);
 
-        // Create a Job with a valid payload
-        $job = $this->createTestJob(
+        // Create a Job with a valid payload, the scrapping process will start automatically
+        $job = Job::make(
             payload: [
                 'urls' => ['https://example.com'],
                 'selectors' => ['title' => 'h1']
             ]
         );
 
-        // Act
         $this->webScrapperService->scrap($job);
 
         // Assert
-        $this->assertDatabaseHas('jobs', [
-            'id' => $job->id,
-            'scrapped' => json_encode([
-                'https://example.com' => [
-                    'title' => ['Sample Title']
-                ]
-            ])
+        $this->assertDatabaseHas(ScrappedItem::TABLE, [
+            'attribute' => 'title',
+            'selector' => 'h1',
+            'url' => 'https://example.com',
+            'value' => 'Sample Title',
         ]);
     }
 
@@ -99,21 +94,26 @@ class WebScrapperServiceTest extends TestCase
         $this->crawlerMock->shouldReceive('each')->andReturn([]);
 
         // Create a Job with a valid payload
-        $job = $this->createTestJob(
+        $job = Job::make(
             payload: [
                 'urls' => ['https://example.com'],
                 'selectors' => ['title' => 'h1']
             ]
         );
 
+
+        // Save the table entry count
+        $savedCount = ScrappedItem::all()->count();
+
         // Act
         $this->webScrapperService->scrap($job);
 
         // Assert
-        $this->assertDatabaseHas('jobs', [
-            'id' => $job->id,
-            'scrapped' => json_encode([])
-        ]);
+        $this->assertEquals(
+            expected: $savedCount,
+            actual: ScrappedItem::all()->count(),
+            message: 'No elements should match the selection so there should be no new scrapped products'
+        );
     }
 
     /**
@@ -123,27 +123,5 @@ class WebScrapperServiceTest extends TestCase
     {
         Mockery::close();
         parent::tearDown();
-    }
-
-    /**
-     * @param string|null $attempts
-     * @param DateTime|null $available_at
-     * @param array|null $payload
-     * @param string|null $queue
-     *
-     * @return Job
-     */
-    private function createTestJob(
-        ?string $attempts = '0',
-        ?DateTime $available_at = null,
-        ?array $payload = [],
-        ?string $queue = 'default'
-    ): Job {
-        return Job::create([
-            'attempts' => $attempts,
-            'available_at' => $available_at ?? now(),
-            'payload' => json_encode($payload),
-            'queue' => $queue
-        ]);
     }
 }
