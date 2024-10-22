@@ -4,7 +4,7 @@ namespace Tests\Unit;
 
 use App\Exceptions\InsufficientJobParametersException;
 use App\Models\Job;
-use App\Services\WebScrapperService;
+use App\Services\Scrap\WebScrapperService;
 use DateTime;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Mockery;

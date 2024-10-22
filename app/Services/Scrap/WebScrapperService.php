@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Scrap;
 
 use App\Exceptions\InsufficientJobParametersException;
 use App\Models\Job;
 use Symfony\Component\BrowserKit\HttpBrowser;
 use Symfony\Component\DomCrawler\Crawler;
 
-readonly class WebScrapperService
+readonly class WebScrapperService implements ScrapperServiceInterface
 {
     /**
      * @param HttpBrowser $browser

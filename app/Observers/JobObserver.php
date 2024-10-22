@@ -2,8 +2,9 @@
 
 namespace App\Observers;
 
+use App\Exceptions\InsufficientJobParametersException;
 use App\Models\Job;
-use App\Services\WebScrapperService;
+use App\Services\Scrap\WebScrapperService;
 
 readonly class JobObserver
 {
@@ -13,6 +14,8 @@ readonly class JobObserver
 
     /**
      * Scrape the page for a newly created job
+     *
+     * @throws InsufficientJobParametersException
      */
     public function created(Job $job): void
     {
