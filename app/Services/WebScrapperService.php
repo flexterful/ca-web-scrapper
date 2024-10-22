@@ -27,7 +27,7 @@ class WebScrapperService
         $scrapedData = $this->scrapMultipleUrls($urls, $selectors);
 
         // Save results to DB
-        $job->scrapped = $scrapedData;
+        $job->scrapped = json_encode($scrapedData);
         $job->save();
     }
 
@@ -128,6 +128,7 @@ class WebScrapperService
     {
         // Load the page contents
         $crawler = $browser->request('GET', $url);
+
         // Scrap the page
         return $this->scrapMultipleSelectors($crawler, $selectors);
     }

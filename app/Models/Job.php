@@ -11,6 +11,18 @@ use DateTime;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property int $id
+ * @property string $queue
+ * @property string $payload
+ * @property string $login_prefix
+ * @property int $attempts
+ * @property DateTime $available_at
+ * @property DateTime $created_at
+ * @property DateTime $reserved_at
+ * @property DateTime $updated_at
+ * @property string $scrapped
+ */
 #[ApiResource(
     operations: [
         new Delete(),
@@ -19,18 +31,6 @@ use Illuminate\Database\Eloquent\Model;
     ],
 )]
 #[ObservedBy([JobObserver::class])]
-/**
- * @property int $id
- * @property string $queue
- * @property string $payload
- * @property string $login_prefix
- * @property int $attempts
- * @property DateTime available_at
- * @property DateTime created_at
- * @property DateTime reserved_at
- * @property DateTime updated_at
- * @property string scrapped
- */
 class Job extends Model
 {
 }
