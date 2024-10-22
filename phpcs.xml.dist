@@ -18,6 +18,11 @@
         </properties>
     </rule>
 
+    <!-- Ignore non-camel caps method names, used in tests -->
+    <rule ref="PSR2">
+        <exclude name="PSR1.Methods.CamelCapsMethodName"/>
+    </rule>
+
     <!-- Ignore warnings, show only errors -->
     <!-- <arg value="n"/> -->
 
