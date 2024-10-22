@@ -22,6 +22,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property DateTime $reserved_at
  * @property DateTime $updated_at
  * @property string $scrapped
+ *
+ * @method static self create(array $attributes = []))
  */
 #[ApiResource(
     operations: [
@@ -33,4 +35,10 @@ use Illuminate\Database\Eloquent\Model;
 #[ObservedBy([JobObserver::class])]
 class Job extends Model
 {
+    protected $fillable = [
+        'attempts',
+        'available_at',
+        'payload',
+        'queue'
+    ];
 }

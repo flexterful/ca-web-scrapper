@@ -7,8 +7,15 @@ use App\Models\Job;
 use Symfony\Component\BrowserKit\HttpBrowser;
 use Symfony\Component\DomCrawler\Crawler;
 
-class WebScrapperService
+readonly class WebScrapperService
 {
+    /**
+     * @param HttpBrowser $browser
+     */
+    public function __construct(private HttpBrowser $browser)
+    {
+    }
+
     /**
      * @param Job $job
      *
@@ -100,12 +107,11 @@ class WebScrapperService
     private function scrapMultipleUrls(array $urls, array $selectors): array
     {
         // Prepare for scrapping
-        $browser = new HttpBrowser();
         $scrapedData = [];
 
         // Walk through every URL provided in the payload
         foreach ($urls as $url) {
-            $scrappedUrlData = $this->scrapUrl($browser, $url, $selectors);
+            $scrappedUrlData = $this->scrapUrl($url, $selectors);
             // Skip empty results
             if (!empty($scrappedUrlData)) {
                 $scrapedData[$url] = $scrappedUrlData;
@@ -118,16 +124,15 @@ class WebScrapperService
     /**
      * Scrap contents of the specified URL
      *
-     * @param HttpBrowser $browser
      * @param string $url
      * @param array $selectors
      *
      * @return array
      */
-    private function scrapUrl(HttpBrowser $browser, string $url, array $selectors): array
+    private function scrapUrl(string $url, array $selectors): array
     {
         // Load the page contents
-        $crawler = $browser->request('GET', $url);
+        $crawler = $this->browser->request('GET', $url);
 
         // Scrap the page
         return $this->scrapMultipleSelectors($crawler, $selectors);
