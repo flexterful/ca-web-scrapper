@@ -1,0 +1,33 @@
+FROM php:8.3.7-fpm
+
+## Install the PHP extensions we need
+RUN apt-get update && apt-get install -y \
+    curl \
+    git \
+    zip \
+    unzip \
+    libzip-dev \
+    && pecl install xdebug \
+    && docker-php-ext-enable xdebug \
+    && docker-php-ext-install -j$(nproc) opcache pdo pdo_mysql zip
+
+# Configure Xdebug (adjust settings as needed)
+RUN echo "xdebug.mode=debug" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+    && echo "xdebug.start_with_request=yes" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+    && echo "xdebug.client_host=host.docker.internal" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+    && echo "xdebug.client_port=9003" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+    && echo "xdebug.log=/tmp/xdebug.log" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+
+# Install Composer v2.5.8
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer --version=2.7.2
+
+# Clear cache
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Set the working directory for the container
+WORKDIR /www/web-scrapper
+
+# Add entrypoint script to the container
+COPY _external/entrypoint.sh /usr/bin/entrypoint.sh
+RUN chmod a+x /usr/bin/entrypoint.sh
+ENTRYPOINT [ "entrypoint.sh" ]
