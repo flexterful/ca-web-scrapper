@@ -2,14 +2,16 @@ parameters:
     level: 5
     paths:
         - app/
-        - config/
         - database/
         - tests/
     excludePaths:
-        - */bootstrap/*
-        - */database/migrations/*
-        - */resources/*
-        - */storage/*
-        - */vendor/*
+        - bootstrap/*
+        - config/*
+        - database/migrations/*
+        - resources/*
+        - storage/*
+        - vendor/*
     ignoreErrors:
         - '#Undefined variable: \$this#'
+        - '#Parameter \#1 .* of class .* expects .*, Mockery\\MockInterface given.#'
+

@@ -4,6 +4,8 @@ namespace App\Services\Scrap;
 
 use App\Exceptions\InsufficientJobParametersException;
 use App\Models\Job;
+use App\Models\ScrappedItem;
+use Illuminate\Support\Facades\DB;
 use Symfony\Component\BrowserKit\HttpBrowser;
 use Symfony\Component\DomCrawler\Crawler;
 
@@ -30,12 +32,14 @@ readonly class WebScrapperService implements ScrapperServiceInterface
             throw new InsufficientJobParametersException();
         }
 
-        // Scrap the pages
-        $scrapedData = $this->scrapMultipleUrls($urls, $selectors);
+        // Begin the DB transaction
+        DB::beginTransaction();
 
-        // Save results to DB
-        $job->scrapped = json_encode($scrapedData);
-        $job->save();
+        // Scrap the pages
+        $this->scrapMultipleUrls($urls, $selectors);
+
+        // Finish the transaction and save results to DB
+        DB::commit();
     }
 
     /**
@@ -57,28 +61,48 @@ readonly class WebScrapperService implements ScrapperServiceInterface
     }
 
     /**
+     * @param array $parsedNodeContents
+     * @param string $contentName
+     * @param string $selector
+     * @param string $url
+     *
+     * @return void
+     */
+    private function saveParsedContents(
+        array $parsedNodeContents,
+        string $contentName,
+        string $selector,
+        string $url
+    ): void {
+        foreach ($parsedNodeContents as $content) {
+            ScrappedItem::make(
+                attribute: $contentName,
+                selector: $selector,
+                url: $url,
+                value: $content,
+            );
+        }
+    }
+
+    /**
      * Get contents for all specified selectors
      *
      * @param Crawler $crawler
      * @param array $selectors
+     * @param string $url
      *
-     * @return array
+     * @return void
      */
-    private function scrapMultipleSelectors(Crawler $crawler, array $selectors): array
+    private function scrapMultipleSelectors(Crawler $crawler, array $selectors, string $url): void
     {
-        $scrappedUrlData = [];
-
         // Walk through every selector provided in the payload
         foreach ($selectors as $contentName => $selector) {
             // Walk through every node that matches the selector
             $parsedNodeContents = $this->scrapSelector($crawler, $selector);
-            // Skip empty results
             if (!empty($parsedNodeContents)) {
-                $scrappedUrlData[$contentName] = $parsedNodeContents;
+                $this->saveParsedContents($parsedNodeContents, $contentName, $selector, $url);
             }
         }
-
-        return $scrappedUrlData;
     }
 
     /**
@@ -95,30 +119,20 @@ readonly class WebScrapperService implements ScrapperServiceInterface
             return $node->text();
         });
     }
-
     /**
      * Scrap contents for specified URLs
      *
      * @param array $urls
      * @param array $selectors
      *
-     * @return array
+     * @return void
      */
-    private function scrapMultipleUrls(array $urls, array $selectors): array
+    private function scrapMultipleUrls(array $urls, array $selectors): void
     {
-        // Prepare for scrapping
-        $scrapedData = [];
-
         // Walk through every URL provided in the payload
         foreach ($urls as $url) {
-            $scrappedUrlData = $this->scrapUrl($url, $selectors);
-            // Skip empty results
-            if (!empty($scrappedUrlData)) {
-                $scrapedData[$url] = $scrappedUrlData;
-            }
+            $this->scrapUrl($url, $selectors);
         }
-
-        return $scrapedData;
     }
 
     /**
@@ -127,14 +141,14 @@ readonly class WebScrapperService implements ScrapperServiceInterface
      * @param string $url
      * @param array $selectors
      *
-     * @return array
+     * @return void
      */
-    private function scrapUrl(string $url, array $selectors): array
+    private function scrapUrl(string $url, array $selectors): void
     {
         // Load the page contents
         $crawler = $this->browser->request('GET', $url);
 
         // Scrap the page
-        return $this->scrapMultipleSelectors($crawler, $selectors);
+        $this->scrapMultipleSelectors($crawler, $selectors, $url);
     }
 }
