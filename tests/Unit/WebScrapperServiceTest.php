@@ -2,8 +2,8 @@
 
 namespace Tests\Unit;
 
+use App\ApiResources\ScrapJob;
 use App\Exceptions\InsufficientJobParametersException;
-use App\Models\Job;
 use App\Models\ScrappedItem;
 use App\Services\Scrap\WebScrapperService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -42,7 +42,11 @@ class WebScrapperServiceTest extends TestCase
 
         // Create a Job with an invalid payload
         $this->webScrapperService->scrap(
-            Job::make()
+            new ScrapJob(
+                id: uniqid('empty_job_'),
+                urls: [],
+                selectors: []
+            )
         );
     }
 
@@ -61,11 +65,10 @@ class WebScrapperServiceTest extends TestCase
         $this->crawlerMock->shouldReceive('each')->andReturn(['Sample Title']);
 
         // Create a Job with a valid payload, the scrapping process will start automatically
-        $job = Job::make(
-            payload: [
-                'urls' => ['https://example.com'],
-                'selectors' => ['title' => 'h1']
-            ]
+        $job = new ScrapJob(
+            id: uniqid('job_'),
+            urls: ['https://example.com'],
+            selectors: ['title' => 'h1']
         );
 
         $this->webScrapperService->scrap($job);
@@ -94,13 +97,11 @@ class WebScrapperServiceTest extends TestCase
         $this->crawlerMock->shouldReceive('each')->andReturn([]);
 
         // Create a Job with a valid payload
-        $job = Job::make(
-            payload: [
-                'urls' => ['https://example.com'],
-                'selectors' => ['title' => 'h1']
-            ]
+        $job = new ScrapJob(
+            id: uniqid('job_'),
+            urls: ['https://example.com'],
+            selectors: ['title' => 'h1']
         );
-
 
         // Save the table entry count
         $savedCount = ScrappedItem::all()->count();
