@@ -29,6 +29,9 @@ Coding Assignment 2024: Web Scrapper
 - **API**
     - https://localhost:8080/api
 
+- **Horizon dashboard**
+    - https://localhost:8080/horizon
+
 
 ## Testing
 
@@ -84,3 +87,13 @@ Expect to fail
   }
 }
 ```
+## Code quality
+
+- **Code quality tools** (automatically run by the pre-commit hook) 
+    - Enter the `ws-php` container and run:
+    - `./vendor/bin/grumphp run`
+
+
+- **Unit Tests** isolated from code styling
+    - Enter the `ws-php` container and run:
+    - `./vendor/bin/phpunit`
