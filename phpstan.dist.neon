@@ -14,7 +14,5 @@ parameters:
     ignoreErrors:
         - '#Undefined variable: \$this#'
         - '#Parameter \#1 .* of class .* expects .*, Mockery\\MockInterface given.#'
-        - '#Call to an undefined static method Illuminate\\Support\\Facades\\Redis::get\(\).#'
-        - '#Call to an undefined static method Illuminate\\Support\\Facades\\Redis::set\(\).#'
-        - '#Call to an undefined static method Illuminate\\Support\\Facades\\Redis::del\(\).#'
+        - '#Call to an undefined static method Illuminate\\Support\\Facades\\Redis::(get|set|del)\(\).#'
 
