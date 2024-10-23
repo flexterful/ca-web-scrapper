@@ -35,5 +35,5 @@ php artisan migrate
 echo -e "${Green}Done.${NC}"
 
 
-echo -e "\n${Yellow}Run the php-fpm service on port 9000...${NC}"
-php-fpm
+echo -e "\n${Yellow}Run the php-fpm service (port 9000) and Laravel queues...${NC}"
+php-fpm & php artisan queue:work

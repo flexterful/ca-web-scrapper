@@ -3,10 +3,11 @@ services:
   # Web server
   nginx:
     image: nginx:1.26
+    container_name: ws-nginx
     ports:
       - '8080:8080'
     volumes:
-      - ./_external/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./_external/nginx.conf:/etc/nginx/conf.d/default.conf:ro # Specify the config file
       - ./:/www/web-scrapper:ro
     depends_on:
       - php
@@ -19,6 +20,7 @@ services:
   php:
     build:
       dockerfile: Dockerfile-php
+    container_name: ws-php
     expose:
       - 9000
     volumes:
@@ -29,6 +31,7 @@ services:
   # MySQL Database
   db:
     image: mysql:8.4
+    container_name: ws-db
     ports:
       - '3336:3336'
     environment:
@@ -37,3 +40,14 @@ services:
       MYSQL_DATABASE: web-scrap-db
     volumes:
       - ./.docker/mysql/local:/var/lib/mysql # This will store the DB data locally
+
+  # Redis
+  redis:
+    image: redis:alpine
+    container_name: ws-redis
+    command: redis-server /usr/local/etc/redis/redis.conf # This will load the config file
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./_external/redis.conf:/usr/local/etc/redis/redis.conf:ro # Specify the config file
+      - ./.docker/redis/local:/data # This will store the DB data locally
