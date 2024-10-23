@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Job;
 use App\Models\ScrappedItem;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -23,7 +22,7 @@ return new class () extends Migration {
         });
 
         // Remove scrapped column from jobs table
-        Schema::table(Job::TABLE, function (Blueprint $table) {
+        Schema::table('jobs', function (Blueprint $table) {
             $table->dropColumn('scrapped');
         });
     }
@@ -37,7 +36,7 @@ return new class () extends Migration {
         Schema::dropIfExists(ScrappedItem::TABLE);
 
         // Restore scrapped column in jobs table
-        Schema::table(Job::TABLE, function (Blueprint $table) {
+        Schema::table('jobs', function (Blueprint $table) {
             $table->longText('scrapped');
         });
     }

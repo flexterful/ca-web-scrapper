@@ -2,8 +2,8 @@
 
 namespace App\Services\Scrap;
 
+use App\ApiResources\ScrapJob;
 use App\Exceptions\InsufficientJobParametersException;
-use App\Models\Job;
 use App\Models\ScrappedItem;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\BrowserKit\HttpBrowser;
@@ -19,45 +19,39 @@ readonly class WebScrapperService implements ScrapperServiceInterface
     }
 
     /**
-     * @param Job $job
+     * @param ScrapJob $job
      *
      * @return void
      *
      * @throws InsufficientJobParametersException
      */
-    public function scrap(Job $job): void
+    public function scrap(ScrapJob $job): void
     {
         // Parse job payload
-        if (!$this->parsePayload($job, $urls, $selectors)) {
+        if (!$this->checkPayload($job)) {
             throw new InsufficientJobParametersException();
         }
 
         // Begin the DB transaction
         DB::beginTransaction();
 
+        $this->scrapMultipleUrls($job->urls, $job->selectors);
         // Scrap the pages
-        $this->scrapMultipleUrls($urls, $selectors);
 
         // Finish the transaction and save results to DB
         DB::commit();
     }
 
     /**
-     * Parse the job payload for URLs and CSS/HTML selectors
+     * Check the job payload for URLs and CSS/HTML selectors
      *
-     * @param Job $job
-     * @param $urls
-     * @param $selectors
+     * @param ScrapJob $job
      *
      * @return bool
      */
-    private function parsePayload(Job $job, &$urls, &$selectors): bool
+    private function checkPayload(ScrapJob $job): bool
     {
-        $payload = json_decode($job->payload, true);
-        $urls = $payload['urls'] ?? null;
-        $selectors = $payload['selectors'] ?? null;
-
-        return !empty($selectors) && !empty($urls);
+        return !empty($job->urls) && !empty($job->urls);
     }
 
     /**

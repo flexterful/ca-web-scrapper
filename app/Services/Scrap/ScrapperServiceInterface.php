@@ -2,14 +2,14 @@
 
 namespace App\Services\Scrap;
 
-use App\Models\Job;
+use App\ApiResources\ScrapJob;
 
 interface ScrapperServiceInterface
 {
     /**
-     * @param Job $job
+     * @param ScrapJob $job
      *
      * @return void
      */
-    public function scrap(Job $job): void;
+    public function scrap(ScrapJob $job): void;
 }

@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Job;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,7 +10,6 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        //        Schema::table(Job::TABLE, function (Blueprint $table) {
         Schema::table('jobs', function (Blueprint $table) {
             // Change available_at column type
             $table->dropColumn('available_at');
@@ -33,7 +31,6 @@ return new class () extends Migration {
      */
     public function down(): void
     {
-        //        Schema::table(Job::TABLE, function (Blueprint $table) {
         Schema::table('jobs', function (Blueprint $table) {
             // Remove columns updated_at and scrapped
             $table->dropColumn('updated_at');
