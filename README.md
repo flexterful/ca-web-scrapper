@@ -27,10 +27,13 @@ Coding Assignment 2024: Web Scrapper
 ## Access
 
 - **API**
-    - https://localhost:8080/api
+    - http://localhost:8080/api
 
 - **Horizon dashboard**
-    - https://localhost:8080/horizon
+    - http://localhost:8080/horizon
+
+- **RedisMQ Management UI** (user:root, pass:root)
+    - http://localhost:15672
 
 
 ## Testing

@@ -35,5 +35,5 @@ php artisan migrate
 echo -e "${Green}Done.${NC}"
 
 
-echo -e "\n${Yellow}Run the php-fpm service (port 9000) and Laravel queues with Horizon...${NC}"
-php-fpm & php artisan queue:work & php artisan horizon
+echo -e "\n${Yellow}Start Supervisor to manage services...${NC}"
+supervisord -c /etc/supervisor/conf.d/supervisord.conf

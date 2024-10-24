@@ -12,10 +12,6 @@ services:
     depends_on:
       - php
 
-  ###=============###
-  ### API-BACKEND ###
-  ###=============###
-
   # PHP Application
   php:
     build:
@@ -26,7 +22,12 @@ services:
     volumes:
       - ./:/www/web-scrapper
     depends_on:
-      - db
+      db:
+        condition: service_started
+      redis:
+        condition: service_started
+      rabbitmq:
+        condition: service_started
 
   # MySQL Database
   db:
@@ -51,3 +52,16 @@ services:
     volumes:
       - ./_external/redis.conf:/usr/local/etc/redis/redis.conf:ro # Specify the config file
       - ./.docker/redis/local:/data # This will store the DB data locally
+
+  # RabbitMQ
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: ws-rabbitmq
+    ports:
+      - "5672:5672"     # Port for RabbitMQ connections
+      - "15672:15672"   # Port for RabbitMQ Management UI
+    environment:
+      RABBITMQ_DEFAULT_USER: root
+      RABBITMQ_DEFAULT_PASS: root
+    volumes:
+      - ./.docker/rabbitmq/data:/var/lib/rabbitmq  # Persist RabbitMQ data

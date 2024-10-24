@@ -72,6 +72,26 @@ return [
             'after_commit' => false,
         ],
 
+        'rabbitmq' => [
+            'driver' => 'rabbitmq',
+            'queue' => 'default',
+            'connection' => PhpAmqpLib\Connection\AMQPStreamConnection::class,
+
+            'hosts' => [
+                [
+                    'host' => env('RABBITMQ_HOST', 'ws-rabbitmq'),
+                    'port' => env('RABBITMQ_PORT', 5672),
+                    'user' => env('RABBITMQ_USER', 'guest'),
+                    'password' => env('RABBITMQ_PASSWORD', 'guest'),
+                    'vhost' => env('RABBITMQ_VHOST', '/'),
+                ],
+            ],
+
+            /*
+             * Set to "horizon" if you wish to use Laravel Horizon.
+             */
+            'worker' => env('RABBITMQ_WORKER', 'default'),
+        ],
     ],
 
     /*
